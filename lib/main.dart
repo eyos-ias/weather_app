@@ -1,11 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:weather_app/data_service.dart';
-import 'package:weather_app/response_example.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:weather_app/response_example.dart';
+import 'data_service.dart';
 
 Future<void> main() async {
   await dotenv.load();
@@ -36,6 +39,7 @@ class _HomePageState extends State<HomePage> {
   final _dataService = DataService();
   //late WeatherResponse _response;
   late String sityName = '';
+  late String iconUrl = '';
   late int temperature = 0;
   late bool searching = false;
   late String description = '';
@@ -98,6 +102,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _search() async {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
     await CheckUserConnection();
     if (activeConnection == true) {
       setState(() {
@@ -117,6 +122,7 @@ class _HomePageState extends State<HomePage> {
           sityName = response.cityName!;
           temperature = response.tempInfo!.temperature!.toInt();
           description = response.weatherInfo!.description!;
+          iconUrl = response.iconUrl!;
         });
         setState(() {
           searching = false;
