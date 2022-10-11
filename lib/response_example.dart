@@ -38,7 +38,7 @@ class TemperatureInfo {
   TemperatureInfo({this.temperature});
 
   factory TemperatureInfo.fromJson(Map<String, dynamic> json) {
-    final temperature = json['temp'];
+    final temperature = json['temp'].toDouble();
     return TemperatureInfo(temperature: temperature);
   }
 }

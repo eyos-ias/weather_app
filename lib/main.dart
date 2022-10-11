@@ -71,7 +71,8 @@ class _HomePageState extends State<HomePage> {
                                 iconUrl != ''
                                     ? Image.network(iconUrl)
                                     : SizedBox(
-                                        height: 0.0,
+                                        height: 100.0,
+                                        width: 100.0,
                                       ),
                                 Text(sityName),
                                 Text(
