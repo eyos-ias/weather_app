@@ -47,7 +47,10 @@ class WeatherResponse {
   final String? cityName;
   final TemperatureInfo? tempInfo;
   final WeatherInfo? weatherInfo;
-  WeatherResponse({this.cityName, this.tempInfo, this.weatherInfo});
+  final String? iconUrl;
+
+  WeatherResponse(
+      {this.cityName, this.tempInfo, this.weatherInfo, this.iconUrl});
 
   factory WeatherResponse.fromJson(Map<String, dynamic> json) {
     final cityName = json['name'];
@@ -55,8 +58,12 @@ class WeatherResponse {
     final weatherInfoJson = json['weather'][0];
     final weatherInfo = WeatherInfo.fromJson(weatherInfoJson);
     final tempInfo = TemperatureInfo.fromJson(tempInfoJson);
-
+    final iconUrl =
+        'http://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png';
     return WeatherResponse(
-        cityName: cityName, tempInfo: tempInfo, weatherInfo: weatherInfo);
+        cityName: cityName,
+        tempInfo: tempInfo,
+        weatherInfo: weatherInfo,
+        iconUrl: iconUrl);
   }
 }

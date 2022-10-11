@@ -67,6 +67,11 @@ class _HomePageState extends State<HomePage> {
                             )
                           : Column(
                               children: [
+                                iconUrl != ''
+                                    ? Image.network(iconUrl)
+                                    : SizedBox(
+                                        height: 0.0,
+                                      ),
                                 Text(sityName),
                                 Text(
                                   '${temperature.toString()}°',
@@ -157,3 +162,4 @@ class _HomePageState extends State<HomePage> {
     }
   }
 }
+//"https://giphy.com/gifs/juan-gabriel-sSgvbe1m3n93G"
