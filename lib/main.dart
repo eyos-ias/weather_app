@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
   late bool searching = false;
   late String description = '';
   late bool wrong = false;
-  late bool? activeConnection = false;
+  late bool? activeConnection = true;
 
   void initState() {
     CheckUserConnection();
@@ -53,6 +53,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       body: Center(
         child: activeConnection!
             ? Column(
