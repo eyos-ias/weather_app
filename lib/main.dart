@@ -99,29 +99,37 @@ class _HomePageState extends State<HomePage> {
 
   void _search() async {
     await CheckUserConnection();
-    setState(() {
-      wrong = false;
-    });
-    print('search started');
-    setState(() => searching = true);
-    final statuscode = await _dataService.statuscodes(_cityTextController.text);
-    print(statuscode);
+    if (activeConnection == true) {
+      setState(() {
+        wrong = false;
+      });
+      print('search started');
+      setState(() => searching = true);
+      final statuscode =
+          await _dataService.statuscodes(_cityTextController.text);
+      print(statuscode);
 
-    if (statuscode == 200) {
-      final response = await _dataService.getWeather(_cityTextController.text);
+      if (statuscode == 200) {
+        final response =
+            await _dataService.getWeather(_cityTextController.text);
+        setState(() {
+          //_response = response;
+          sityName = response.cityName!;
+          temperature = response.tempInfo!.temperature!.toInt();
+          description = response.weatherInfo!.description!;
+        });
+        setState(() {
+          searching = false;
+          _cityTextController.clear();
+        });
+      } else {
+        setState(() {
+          wrong = true;
+        });
+      }
+    } else if (activeConnection == false) {
       setState(() {
-        //_response = response;
-        sityName = response.cityName!;
-        temperature = response.tempInfo!.temperature!.toInt();
-        description = response.weatherInfo!.description!;
-      });
-      setState(() {
-        searching = false;
-        _cityTextController.clear();
-      });
-    } else {
-      setState(() {
-        wrong = true;
+        activeConnection = false;
       });
     }
 
