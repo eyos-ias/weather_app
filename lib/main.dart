@@ -87,6 +87,9 @@ class _HomePageState extends State<HomePage> {
                     child: SizedBox(
                       width: 150,
                       child: TextField(
+                        onSubmitted: (String value) {
+                          _search();
+                        },
                         controller: _cityTextController,
                         decoration: InputDecoration(labelText: 'City'),
                         textAlign: TextAlign.center,
